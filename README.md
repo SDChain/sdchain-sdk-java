@@ -2,9 +2,9 @@
 
 The SDChain Java Sdk library provides APIs to build transactions and connect to SDChain networks.
 
-SDK version 1.0.1
+SDK version 0.0.1
 
-MAVEN Repository Path: /io/sdchain/sdk/1.0.1/sdk-1.0.1.jar
+MAVEN Repository Path: /io/sdchain/sdk/0.0.1/sdk-0.0.1.jar
 
 # Installation
 
