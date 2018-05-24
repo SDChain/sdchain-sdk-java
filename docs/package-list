@@ -1,12 +1,3 @@
 io.sdchain
-io.sdchain.core.config
-io.sdchain.core.crypto.ecdsa
-io.sdchain.core.encodings
-io.sdchain.core.encodings.base58
-io.sdchain.core.encodings.common
-io.sdchain.core.utils
-io.sdchain.exception
-io.sdchain.model
 io.sdchain.net
-io.sdchain.net.json
 io.sdchain.util

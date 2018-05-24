@@ -38,16 +38,16 @@ import io.sdchain.model.EffectCollection;
  * @author sean
  */
 public class EffectCollectionDeserializer implements JsonDeserializer<EffectCollection> {
-    
-	/**
-	 * @param json the json element
-	 * @see com.google.gson.JsonDeserializer#deserialize(com.google.gson.JsonElement, java.lang.reflect.Type, com.google.gson.JsonDeserializationContext)
-	 */
-	public EffectCollection deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
-            throws JsonParseException {
+
+    /**
+     * @param json the json element
+     * @see com.google.gson.JsonDeserializer#deserialize(com.google.gson.JsonElement, java.lang.reflect.Type, com.google.gson.JsonDeserializationContext)
+     */
+    public EffectCollection deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
+        throws JsonParseException {
         Gson gson = new GsonBuilder()
-                .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
-                .create();
+            .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+            .create();
         if (json.isJsonArray()) {
             Type effectListType = new TypeToken<List<Effect>>() {
             }.getType();

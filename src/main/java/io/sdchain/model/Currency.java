@@ -21,7 +21,7 @@
 
 package io.sdchain.model;
 
-import io.sdchain.SDChainMessage;
+import io.sdchain.core.SDChainMessage;
 import io.sdchain.exception.InvalidParameterException;
 import io.sdchain.util.Utility;
 
@@ -30,7 +30,7 @@ import io.sdchain.util.Utility;
  * the type of Currency 
  * 
  */
-public class Currency extends SDChainObject {
+public class Currency {
     private String currency; // e.g. CNY, USD
     private String counterparty;
 

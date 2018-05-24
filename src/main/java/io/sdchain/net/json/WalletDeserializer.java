@@ -34,37 +34,34 @@ import com.google.gson.JsonParseException;
 import io.sdchain.model.BalanceCollection;
 import io.sdchain.model.EffectCollection;
 import io.sdchain.model.MemoCollection;
-import io.sdchain.model.OrderBookCollection;
 import io.sdchain.model.OrderCollection;
 import io.sdchain.model.PaymentCollection;
 import io.sdchain.model.TransactionCollection;
-import io.sdchain.model.Wallet;
+import io.sdchain.model.AccountWallet;
 /**
  * 
  * ClassName: WalletDeserializer <br/>
  * the <em>Wallet</em> utility of json deserializer
- * @see Wallet
+ * @see AccountWallet
  * @author Sean
  */
-public class WalletDeserializer implements JsonDeserializer<Wallet> {
-    
-	/**
-	 * @param json the json element
-	 * @see com.google.gson.JsonDeserializer#deserialize(com.google.gson.JsonElement, java.lang.reflect.Type, com.google.gson.JsonDeserializationContext)
-	 */
-	public Wallet deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+public class WalletDeserializer implements JsonDeserializer<AccountWallet> {
 
+    /**
+     * @param json the json element
+     * @see com.google.gson.JsonDeserializer#deserialize(com.google.gson.JsonElement, java.lang.reflect.Type, com.google.gson.JsonDeserializationContext)
+     */
+    public AccountWallet deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
         Gson gson = new GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
-        		.excludeFieldsWithoutExposeAnnotation()
-                .registerTypeAdapter(BalanceCollection.class, new BalanceCollectionDeserializer())
-                .registerTypeAdapter(PaymentCollection.class, new PaymentCollectionDeserializer())
-                .registerTypeAdapter(OrderCollection.class, new OrderCollectionDeserializer())
-                .registerTypeAdapter(OrderBookCollection.class, new OrderBookCollectionDeserializer())
-                .registerTypeAdapter(TransactionCollection.class, new TransactionCollectionDeserializer())
-                .registerTypeAdapter(EffectCollection.class, new EffectCollectionDeserializer())
-                .registerTypeAdapter(MemoCollection.class, new MemoCollectionDeserializer())
-                .create();
-        Wallet wallet = gson.fromJson(json, Wallet.class);
+            .excludeFieldsWithoutExposeAnnotation()
+            .registerTypeAdapter(BalanceCollection.class, new BalanceCollectionDeserializer())
+            .registerTypeAdapter(PaymentCollection.class, new PaymentCollectionDeserializer())
+            .registerTypeAdapter(OrderCollection.class, new OrderCollectionDeserializer())
+            .registerTypeAdapter(TransactionCollection.class, new TransactionCollectionDeserializer())
+            .registerTypeAdapter(EffectCollection.class, new EffectCollectionDeserializer())
+            .registerTypeAdapter(MemoCollection.class, new MemoCollectionDeserializer())
+            .create();
+        AccountWallet wallet = gson.fromJson(json, AccountWallet.class);
         return wallet;
     }
 }

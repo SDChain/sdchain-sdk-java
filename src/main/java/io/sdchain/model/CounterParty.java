@@ -3,7 +3,7 @@ package io.sdchain.model;
 /**
  * Counter Party class
  */
-public class CounterParty extends SDChainObject {
+public class CounterParty {
     private String account;
     private int seq;
     private String hash;

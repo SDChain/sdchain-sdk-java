@@ -43,16 +43,15 @@ import io.sdchain.model.OrderCollection;
  * @author Sean
  */
 public class OrderCollectionDeserializer implements JsonDeserializer<OrderCollection> {
-   
-	/**
-	 * @param json the json element
-	 * @see com.google.gson.JsonDeserializer#deserialize(com.google.gson.JsonElement, java.lang.reflect.Type, com.google.gson.JsonDeserializationContext)
-	 */
-	public OrderCollection deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
-            throws JsonParseException {
+
+    /**
+     * @param json the json element
+     * @see com.google.gson.JsonDeserializer#deserialize(com.google.gson.JsonElement, java.lang.reflect.Type, com.google.gson.JsonDeserializationContext)
+     */
+    public OrderCollection deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
         Gson gson = new GsonBuilder()
-                .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
-                .create();
+            .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+            .create();
         if (json.isJsonArray()) {
             Type orderListType = new TypeToken<List<Order>>() {
             }.getType();

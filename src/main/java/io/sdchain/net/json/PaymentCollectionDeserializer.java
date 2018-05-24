@@ -44,18 +44,17 @@ import io.sdchain.model.PaymentCollection;
  * @author Sean
  */
 public class PaymentCollectionDeserializer implements JsonDeserializer<PaymentCollection> {
-    
-	/**
-	 * @param json the json element
-	 * @see com.google.gson.JsonDeserializer#deserialize(com.google.gson.JsonElement, java.lang.reflect.Type, com.google.gson.JsonDeserializationContext)
-	 */
-	public PaymentCollection deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
-            throws JsonParseException {
+
+    /**
+     * @param json the json element
+     * @see com.google.gson.JsonDeserializer#deserialize(com.google.gson.JsonElement, java.lang.reflect.Type, com.google.gson.JsonDeserializationContext)
+     */
+    public PaymentCollection deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
         Gson gson = new GsonBuilder()
-                .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
-                .registerTypeAdapter(Payment.class, new PaymentDeserializer())
-                .registerTypeAdapter(EffectCollection.class, new EffectCollectionDeserializer())
-                .create();
+            .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+            .registerTypeAdapter(Payment.class, new PaymentDeserializer())
+            .registerTypeAdapter(EffectCollection.class, new EffectCollectionDeserializer())
+            .create();
         if (json.isJsonArray()) {
             Type paymentListType = new TypeToken<List<Payment>>() {
             }.getType();

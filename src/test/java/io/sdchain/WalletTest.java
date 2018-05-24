@@ -1,164 +1,149 @@
 package io.sdchain;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
-import io.sdchain.net.APIServer;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+
+import org.junit.Before;
 import org.junit.Test;
 
-import io.sdchain.exception.APIConnectionException;
-import io.sdchain.exception.APIException;
-import io.sdchain.exception.AuthenticationException;
-import io.sdchain.exception.ChannelException;
 import io.sdchain.exception.InvalidParameterException;
-import io.sdchain.exception.InvalidRequestException;
-import io.sdchain.model.Wallet;
+import io.sdchain.exception.RequestException;
+import io.sdchain.model.AccountWallet;
+import io.sdchain.model.Amount;
+import io.sdchain.model.Balance;
+import io.sdchain.model.BalanceCollection;
+import io.sdchain.model.Memo;
+import io.sdchain.model.Options;
+import io.sdchain.model.Order;
+import io.sdchain.model.OrderCollection;
+import io.sdchain.model.Payment;
+import io.sdchain.model.PaymentCollection;
+import io.sdchain.model.RequestResult;
+import io.sdchain.model.Transaction;
+import io.sdchain.model.TransactionCollection;
+import io.sdchain.net.APIServer;
 
 public class WalletTest {
+    @Before
+    public void init() {
+        APIServer.init(BaseTestConfig.API_SERVER, BaseTestConfig.API_VERSION);
+    }
 
-    /**
-    *
-    * No parameters
-    */
     @Test
-    public void testWallet() throws AuthenticationException, InvalidRequestException,
-        InvalidParameterException, APIConnectionException, APIException, ChannelException {
-
-        // 正常创建钱包
-        APIServer.init(BaseConfigInfo.API_SERVER, BaseConfigInfo.API_VERSION);
-
-        // 正常情况 钱包尚未激活且地址正确时
-        Wallet wallet = Wallet.createWallet();
-        assertEquals("6", (wallet.getAddress()).substring(0, 1));
-        assertEquals("s", (wallet.getSecret()).substring(0, 1));
+    public void testNewWallet() throws InvalidParameterException {
+        AccountWallet newWallet = Wallet.newWallet();
+        String address = newWallet.getAddress();
+        String secret = newWallet.getSecret();
+        System.out.println("newWallet: " + newWallet.getAddress());
+        System.out.println("newWallet: " + newWallet.getSecret());
+        assertEquals("6", address.substring(0, 1));
+        assertEquals("s", secret.substring(0, 1));
     }
 
-    /**
-    *
-    * Having parameters
-    * @throws InvalidParameterException 
-    */
-    // @Test
-    public void testParametersWallet() throws AuthenticationException, InvalidRequestException, APIConnectionException, APIException, ChannelException, InvalidParameterException {
-
-        // 正常创建钱包
-        Wallet wallet2 = new Wallet(BaseConfigInfo.TEST_SECRET_A, BaseConfigInfo.TEST_ADDRESS_A);
-        assertEquals(BaseConfigInfo.TEST_ADDRESS_A, wallet2.getAddress());
-        assertEquals(BaseConfigInfo.TEST_SECRET_A, wallet2.getSecret());
-
-        // 异常情况1 地址为空时
-        try {
-            @SuppressWarnings("unused")
-            Wallet wallet01 = new Wallet("", BaseConfigInfo.TEST_SECRET_A);
-        } catch (InvalidParameterException ex) {
-            assertEquals("Invalid address or secret!", ex.getMessage());
-        }
-
-        // 异常情况2 密钥为空时
-        try {
-            @SuppressWarnings("unused")
-            Wallet wallet02 = new Wallet(BaseConfigInfo.TEST_ADDRESS_A, "");
-        } catch (InvalidParameterException ex) {
-            assertEquals("Invalid address or secret!", ex.getMessage());
-        }
-
-        // 异常情况3 地址和密钥都为空时
-        try {
-            @SuppressWarnings("unused")
-            Wallet wallet03 = new Wallet("", "");
-        } catch (InvalidParameterException ex) {
-            assertEquals("Invalid address or secret!", ex.getMessage());
-        }
-
-        // 异常情况4 地址为null时
-        try {
-            @SuppressWarnings("unused")
-            Wallet wallet04 = new Wallet(null, BaseConfigInfo.TEST_SECRET_A);
-        } catch (InvalidParameterException ex) {
-            assertEquals("Invalid address or secret!", ex.getMessage());
-        }
-
-        // 异常情况5 密钥为null时
-        try {
-            @SuppressWarnings("unused")
-            Wallet wallet05 = new Wallet(BaseConfigInfo.TEST_ADDRESS_A, null);
-        } catch (InvalidParameterException ex) {
-            assertEquals("Invalid address or secret!", ex.getMessage());
-        }
-
-        // 异常情况6 地址和密钥都为null时
-        try {
-            @SuppressWarnings("unused")
-            Wallet wallet06 = new Wallet(null, null);
-        } catch (InvalidParameterException ex) {
-            assertEquals("Invalid address or secret!", ex.getMessage());
-        }
-
-        // 异常情况07 地址和密钥不配对时
-        try {
-            @SuppressWarnings("unused")
-            Wallet wallet07 = new Wallet("spoWzgEy9oTnkK6ZgiAY1stWp2vsC", BaseConfigInfo.TEST_ADDRESS_A);
-        } catch (InvalidParameterException ex) {
-            assertEquals("Invalid address or secret!", ex.getMessage());
-        }
-
-        // 异常情况8 地址为无效时
-        try {
-            @SuppressWarnings("unused")
-            Wallet wallet08 = new Wallet("111ssssssss", BaseConfigInfo.TEST_SECRET_A);
-        } catch (InvalidParameterException ex) {
-            assertEquals("Invalid address or secret!", ex.getMessage());
-        }
-
-        // 异常情况9 密钥为无效时
-        try {
-            @SuppressWarnings("unused")
-            Wallet wallet09 = new Wallet(BaseConfigInfo.TEST_ADDRESS_A, "aaaaaa1111");
-        } catch (InvalidParameterException ex) {
-            assertEquals("Invalid address or secret!", ex.getMessage());
-        }
-
-        // 异常情况10 地址和密钥都无效时
-        try {
-            @SuppressWarnings("unused")
-            Wallet wallet10 = new Wallet("@@@@bbbb2222ssssssssssssssssssssssssss001", "***aaa1111");
-        } catch (InvalidParameterException ex) {
-            assertEquals("Invalid address or secret!", ex.getMessage());
+    @Test
+    public void testGetBalance() throws RequestException {
+        BalanceCollection balance = Wallet.getBalance(BaseTestConfig.TEST_ADDRESS_A);
+        Iterator<Balance> it = balance.getData().iterator();
+        while (it.hasNext()) {
+            Balance bl = (Balance) it.next();
+            System.out.println(bl.toString());
+            assertNotNull(bl.getValue());
         }
     }
 
-    /**
-    *
-    *  secret parameter
-    */
-    // @Test
-    public void testSecretWallet() throws AuthenticationException, InvalidRequestException, APIConnectionException, APIException, ChannelException, InvalidParameterException {
-        // 正常创建钱包 密钥有效时
-        Wallet wallet = new Wallet(BaseConfigInfo.TEST_SECRET_A);
-        assertEquals(BaseConfigInfo.TEST_SECRET_A, wallet.getSecret());
-        assertEquals(BaseConfigInfo.TEST_ADDRESS_A, wallet.getAddress());
+    @Test
+    public void testSubmitPayment() throws RequestException {
+        Amount amount = new Amount();
+        amount.setValue(10);
+        amount.setCurrency("SDA");
+        amount.setIssuer("");
+        Memo memo = new Memo();
+        memo.setMemoType("javaSdk");
+        memo.setMemoData("" + new Date());
+        RequestResult result = Wallet.submitPayment(BaseTestConfig.TEST_SECRET_A, BaseTestConfig.TEST_ADDRESS_A, BaseTestConfig.TEST_ADDRESS_B, amount, memo);
+        System.out.println(result);
+        assertTrue(result.isSuccess());
+    }
 
-        // 异常情况1 密钥为空时
-        try {
-            @SuppressWarnings("unused")
-            Wallet wallet01 = new Wallet("");
-        } catch (InvalidParameterException ex) {
-            assertEquals("Invalid SDChain account secret!", ex.getMessage());
+    @Test
+    public void testGetPaymentList() throws RequestException {
+        Options opts = new Options();
+        opts.setPerPage(200);
+        PaymentCollection paymentList = Wallet.getPaymentList(BaseTestConfig.TEST_ADDRESS_A, opts);
+        assertNotNull(paymentList);
+        List<Payment> data = paymentList.getData();
+        for (Payment payment : data) {
+            System.out.println(payment);
+            assertNotNull(payment);
         }
+    }
 
-        // 异常情况2 密钥为null时
-        try {
-            @SuppressWarnings("unused")
-            Wallet wallet02 = new Wallet(null);
-        } catch (InvalidParameterException ex) {
-            assertEquals("Invalid SDChain account secret!", ex.getMessage());
-        }
+    @Test
+    public void testGetPaymentInfo() throws RequestException {
+        Payment paymentInfo = Wallet.getPaymentInfo(BaseTestConfig.TEST_ADDRESS_A, "FA3C029C5068CABF430F1BA390F124D07BC4CFEA3F4FD04009D1FE52F1199907");
+        System.out.println(paymentInfo);
+        assertNotNull(paymentInfo);
+    }
 
-        // 异常情况3 密钥为无效时
-        try {
-            @SuppressWarnings("unused")
-            Wallet wallet03 = new Wallet("1111111111111ssssssssaaaaa22222");
-        } catch (InvalidParameterException ex) {
-            assertEquals("Invalid SDChain account secret!", ex.getMessage());
+    @Test
+    public void testGetTransactionList() throws RequestException {
+        Options opts = new Options();
+        opts.setPerPage(200);
+        TransactionCollection transactionList = Wallet.getTransactionList(BaseTestConfig.TEST_ADDRESS_A, opts);
+        assertNotNull(transactionList);
+        List<Transaction> data = transactionList.getData();
+        for (Transaction transaction : data) {
+            System.out.println(transaction);
+            assertNotNull(transaction);
         }
+    }
+    
+    @Test
+    public void testTGetTransactionInfo() throws RequestException{
+        Transaction transaction = Wallet.getTransactionInfo(BaseTestConfig.TEST_ADDRESS_A, "D908CF3CF7687F1ADC33A4BD7621858E02F043D770AFA32A707AFC1713619B55");
+        System.out.println(transaction);
+        assertNotNull(transaction);
+    }
+
+    @Test
+    public void testGetOrderList() throws RequestException {
+        OrderCollection orderList = Wallet.getOrderList(BaseTestConfig.TEST_ADDRESS_A);
+        assertNotNull(orderList);
+        List<Order> data = orderList.getData();
+        for (Order order : data) {
+            System.out.println(order);
+            assertNotNull(order);
+        }
+    }
+
+    @Test
+    public void testSubmitOrder() throws RequestException {
+        Amount baseAmount = new Amount(5, "CNY", "6ULez2WuK5Hhq8AKK8X4NDmN8cVF5hYy4N");
+        Amount counterAmount = new Amount(1, "SDA", "");
+        RequestResult result = Wallet.submitOrder(BaseTestConfig.TEST_SECRET_A, BaseTestConfig.TEST_ADDRESS_A, baseAmount, counterAmount, true);
+        assertTrue(result.isSuccess());
+        System.out.println(result);
+        String hash = result.getHash();
+        Order orderInfo = Wallet.getOrderInfo(BaseTestConfig.TEST_ADDRESS_A, hash);
+        System.out.println(orderInfo);
+        assertNotNull(orderInfo);
+    }
+
+    @Test
+    public void testDeleteOrder() throws RequestException {
+        RequestResult result = Wallet.deleteOrder(BaseTestConfig.TEST_SECRET_A, BaseTestConfig.TEST_ADDRESS_A, "15");
+        System.out.println(result);
+        assertTrue(result.isSuccess());
+    }
+
+    @Test
+    public void testGetOrderInfo() throws RequestException {
+        Order orderInfo = Wallet.getOrderInfo(BaseTestConfig.TEST_ADDRESS_A, "48B6C19C174E353AC2FAEF277C05705DAAA24C3C5C1A56F0D9DDF20837C16EA3");
+        assertNotNull(orderInfo);
     }
 }

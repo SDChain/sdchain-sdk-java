@@ -23,69 +23,69 @@ package io.sdchain.model;
 /**
  * Post request result class
  */
-public class RequestResult extends SDChainObject {
+public class RequestResult {
     private boolean success;
-    private String client_resource_id;
     private String hash;
     private String state;
     private String result;
     private long date;
     private double fee;
     private long sequence;
-    /**
-     * Get true if request is successful
-     * @return success
-     */
-    public boolean getSuccess() {
+    private String statusUrl;
+
+    public boolean isSuccess() {
         return success;
     }
-    /**
-     * Get resource id
-     * @return client_resource_id
-     */
-    public String getClient_resource_id() {
-        return client_resource_id;
-    }
-    /**
-     * Get hash number
-     * @return hash
-     */
     public String getHash() {
         return hash;
     }
-    /**
-     * Get server state
-     * @return state
-     */
     public String getState() {
         return state;
     }
-    /**
-     * Get server result, tesSuccess means successful
-     * @return result
-     */
     public String getResult() {
         return result;
     }
-    /**
-     * Get time, in UNIXTIME
-     * @return date
-     */
     public long getDate() {
         return date;
     }
-    /**
-     * Get transaction fee, in SDA
-     * @return fee
-     */
     public double getFee() {
         return fee;
     }
-    /**
-     * Get sequence number
-     * @return sequence
-     */
     public long getSequence() {
         return sequence;
     }
+    public void setSuccess(boolean success) {
+        this.success = success;
+    }
+    public void setHash(String hash) {
+        this.hash = hash;
+    }
+    public void setState(String state) {
+        this.state = state;
+    }
+    public void setResult(String result) {
+        this.result = result;
+    }
+    public void setDate(long date) {
+        this.date = date;
+    }
+    public void setFee(double fee) {
+        this.fee = fee;
+    }
+    public void setSequence(long sequence) {
+        this.sequence = sequence;
+    }
+
+    public String getStatusUrl() {
+        return statusUrl;
+    }
+    public void setStatusUrl(String statusUrl) {
+        this.statusUrl = statusUrl;
+    }
+
+    @Override
+    public String toString() {
+        return "RequestResult [success=" + success + ", hash=" + hash + ", state=" + state + ", result=" + result + ", date=" + date + ", fee=" + fee + ", sequence=" + sequence + ", statusUrl=" + statusUrl + "]";
+    }
+
 }

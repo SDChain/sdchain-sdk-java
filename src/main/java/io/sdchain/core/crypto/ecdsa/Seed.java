@@ -26,8 +26,8 @@ import static io.sdchain.core.config.IdentiferCodecs.getB58IdentiferCodecs;
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 
-import io.sdchain.SDChain;
-import io.sdchain.SDChainMessage;
+import io.sdchain.core.SDChain;
+import io.sdchain.core.SDChainMessage;
 import io.sdchain.core.utils.HashUtils;
 import io.sdchain.core.utils.Sha512;
 import io.sdchain.core.utils.Utils;

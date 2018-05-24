@@ -22,124 +22,72 @@
 package io.sdchain.model;
 
 import com.google.gson.annotations.Expose;
-import io.sdchain.SDChainMessage;
-import io.sdchain.exception.InvalidParameterException;
-import io.sdchain.util.Utility;
 
 /**
  * Currency Amount class
  * Updated with getIssuer() for new interface
  */
-public class Amount extends SDChainObject {
+public class Amount {
     @Expose
-    private double value;
-    @Expose
-    private double limit;// for relation use only
+    private String value;
     @Expose
     private String currency;
     @Expose
-    private String issuer; // for balance
-    // @Expose
-    private String counterparty;// for order,
+    private String issuer = ""; // for balance
+    @Expose
+    private String counterparty = "";// for order,
 
-    private static final String sda = "SDA";
-    /**
-     * Set SDChainCurrency
-     * @param sdc the currency of sdchain
-     * @throws InvalidParameterException
-     */
-    public void setSDChainCurrency(Currency sdc) throws InvalidParameterException {
-        if (sdc == null) {
-            throw new InvalidParameterException(SDChainMessage.INVALID_SDCHAIN_CURRENCY, currency, null);
-        }
-        this.currency = sdc.getCurrency();
-        this.counterparty = sdc.getIssuer();
-        this.issuer = sdc.getIssuer();
+    public Amount() {
+        super();
     }
 
-    public boolean isSDA() {
-        if (currency.compareTo(sda) == 0)
-            return true;
-        else
-            return false;
-    }
-    /**
-     * Get value
-     * @return value
-     */
-    public double getValue() {
-        return this.value;
+    public Amount(double value, String currency, String issuerorcounterparty) {
+        super();
+        this.value = String.valueOf(value);
+        this.currency = currency;
+        this.issuer = issuerorcounterparty;
+        this.counterparty = issuerorcounterparty;
     }
 
-    /**
-     * Get limit for relation class
-     * @return limit
-     */
-    public double getLimit() {
-        return this.limit;
-    }
-
-    /**
-     * Set value
-     * @param value
-     * @throws InvalidParameterException
-     */
-    public void setValue(double value) throws InvalidParameterException {
-        if (value < 0) {
-            throw new InvalidParameterException(SDChainMessage.INVALID_VALUE, currency, null);
-        }
-        this.value = value;
-    }
-    /**
-     * Get currency
-     * @return currency
-     */
     public String getCurrency() {
         return currency;
     }
-    /**
-     * Set currency
-     * @param currency
-     * @throws InvalidParameterException
-     */
-    public void setCurrency(String currency) throws InvalidParameterException {
-        if (!Utility.isValidCurrency(currency)) {
-            throw new InvalidParameterException(SDChainMessage.INVALID_CURRENCY, currency, null);
-        }
-        this.currency = currency;
-    }
-    /**
-     * Get issuer
-     * @return issuer
-     */
+
     public String getIssuer() {
-        if (issuer != null && issuer.length() > 0)
-            return issuer;
-        return counterparty;
-    }
-    /**
-     * Set issuer
-     * @param issuer
-     * @throws InvalidParameterException
-     */
-    public void setIssuer(String issuer) throws InvalidParameterException {
-        if (issuer != "" && !Utility.isValidAddress(issuer)) {
-            throw new InvalidParameterException(SDChainMessage.INVALID_SDCHAIN_ADDRESS, issuer, null);
-        }
-        this.issuer = issuer;
-        this.counterparty = issuer;
+        return issuer;
     }
 
-    /**
-     * Set counter party
-     * @param counterparty
-     * @throws InvalidParameterException 
-     */
-    public void setCounterparty(String counterparty) throws InvalidParameterException {
-        if (!"".equals(counterparty) && !Utility.isValidAddress(counterparty)) {
-            throw new InvalidParameterException(SDChainMessage.INVALID_SDCHAIN_ADDRESS, counterparty, null);
-        }
-        this.counterparty = counterparty;
-        this.issuer = counterparty;
+    public String getCounterparty() {
+        return counterparty;
     }
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    public void setValue(double value) {
+        this.value = "" + value;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
+
+    public void setIssuer(String issuer) {
+        this.issuer = issuer;
+    }
+
+    public void setCounterparty(String counterparty) {
+        this.counterparty = counterparty;
+    }
+
+    @Override
+    public String toString() {
+        return "Amount [value=" + value + ", currency=" + currency + ", issuer=" + issuer + ", counterparty=" + counterparty + "]";
+    }
+
 }

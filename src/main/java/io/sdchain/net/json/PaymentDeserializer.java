@@ -42,17 +42,16 @@ import io.sdchain.model.Payment;
  * @author Sean
  */
 public class PaymentDeserializer implements JsonDeserializer<Payment> {
-    
-	/**
-	 * @param json the json element
-	 * @see com.google.gson.JsonDeserializer#deserialize(com.google.gson.JsonElement, java.lang.reflect.Type, com.google.gson.JsonDeserializationContext)
-	 */
-	public Payment deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) 
-    		throws JsonParseException {
+
+    /**
+     * @param json the json element
+     * @see com.google.gson.JsonDeserializer#deserialize(com.google.gson.JsonElement, java.lang.reflect.Type, com.google.gson.JsonDeserializationContext)
+     */
+    public Payment deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
         Gson gson = new GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
-        		.registerTypeAdapter(EffectCollection.class, new EffectCollectionDeserializer())
-                .registerTypeAdapter(MemoCollection.class, new MemoCollectionDeserializer())
-        		.create();
+            .registerTypeAdapter(EffectCollection.class, new EffectCollectionDeserializer())
+            .registerTypeAdapter(MemoCollection.class, new MemoCollectionDeserializer())
+            .create();
         Payment payment = gson.fromJson(json, Payment.class);
         return payment;
     }

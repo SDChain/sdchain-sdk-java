@@ -23,161 +23,68 @@ package io.sdchain.model;
 /**
  * Payment model class
  */
-public class Payment extends SDChainObject {
-    private boolean success;
-    private String client_resource_id;
+public class Payment {
     private String hash;
-    private StateType state;
-    private String result;
-    private long date;
-    private double fee;
-    private String type;
-    private String counterparty;
+    private String ledger;
     private Amount amount;
-    private EffectCollection effects;
-    private String paths;
-    private String source_account;
-    private String destination_account;
-    private Amount source_amount;
-    private double source_slippage;
-    private Amount destination_amount;
-    private MemoCollection memos;
-
-    /**
-     * Server state:
-     * validated or failed
-     */
-    public enum StateType {
-        validated, failed
-    }
-    /**
-     * payment direction
-     *
-     */
-    public enum Direction {
-        incoming, outgoing, all
-    }
-    /**
-     * Get payment paths
-     * @return paths
-     */
-    public String getPaths() {
-        return paths;
-    }
-
-    public MemoCollection getMemos() {
-        return memos;
-    }
-    /**
-     * Get source account in finding payment path
-     * @return source account
-     */
-    public String getSourceAccount() {
-        return source_account;
-    }
-    /**
-     * Get destination account in finding payment path
-     * @return destination account
-     */
-    public String getDestinationAccount() {
-        return destination_account;
-    }
-    /**
-     * Get destination amount info in finding payment path
-     * @return destination_amount
-     */
-    public Amount getDestinationAmount() {
-        return destination_amount;
-    }
-    /**
-     * Get source slippage
-     * @return source_sliepage
-     */
-    public double getSourceSlippage() {
-        return source_slippage;
-    }
-    /**
-     * Get source payment needed in finding payment path
-     * @return source_amount
-     */
-    public Amount getSourceAmount() {
-        return source_amount;
-    }
-    /**
-     * Get payment effect effect collection
-     * @return effects
-     */
-    public EffectCollection getEffects() {
-        return effects;
-    }
-    /**
-     * Get payment type
-     * @return type
-     */
-    public String getType() {
-        return type;
-    }
-    /**
-     * Get currency counter party
-     * @return counterparty
-     */
-    public String getCounterparty() {
-        return counterparty;
-    }
-    /**
-     * Get payment amount
-     * @return amount
-     */
-    public Amount getAmount() {
-        return amount;
-    }
-    /**
-     * Return true if request is successful
-     * @return success
-     */
-    public boolean getSuccess() {
-        return success;
-    }
-    /**
-     * Get payment resource id
-     * @return client_resource_id
-     */
-    public String getClient_resource_id() {
-        return client_resource_id;
-    }
-    /**
-     * Get payment hash value
-     * @return hash
-     */
+    private double fee;
+    private String sourceAccount;
+    private String destinationAccount;
+    private String direction;
+    private String timestamp;
+    
     public String getHash() {
         return hash;
     }
-    /**
-     * Get state type 
-     * @return state
-     */
-    public StateType getState() {
-        return state;
+    public String getLedger() {
+        return ledger;
     }
-    /**
-     * Get server result
-     * @return result
-     */
-    public String getResult() {
-        return result;
+    public Amount getAmount() {
+        return amount;
     }
-    /**
-     * Get payment time, in UNIXTIME
-     * @return date
-     */
-    public long getDate() {
-        return date;
-    }
-    /**
-     * Get payment transaction fee, in SDA
-     * @return fee
-     */
     public double getFee() {
         return fee;
     }
+    public String getSourceAccount() {
+        return sourceAccount;
+    }
+    public String getDestinationAccount() {
+        return destinationAccount;
+    }
+    public String getDirection() {
+        return direction;
+    }
+    public String getTimestamp() {
+        return timestamp;
+    }
+    public void setHash(String hash) {
+        this.hash = hash;
+    }
+    public void setLedger(String ledger) {
+        this.ledger = ledger;
+    }
+    public void setAmount(Amount amount) {
+        this.amount = amount;
+    }
+    public void setFee(double fee) {
+        this.fee = fee;
+    }
+    public void setSourceAccount(String sourceAccount) {
+        this.sourceAccount = sourceAccount;
+    }
+    public void setDestinationAccount(String destinationAccount) {
+        this.destinationAccount = destinationAccount;
+    }
+    public void setDirection(String direction) {
+        this.direction = direction;
+    }
+    public void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
+    }
+    @Override
+    public String toString() {
+        return "Payment [hash=" + hash + ", ledger=" + ledger + ", amount=" + amount + ", fee=" + fee + ", sourceAccount=" + sourceAccount + ", destinationAccount=" + destinationAccount + ", direction=" + direction + ", timestamp="
+            + timestamp + "]";
+    }
+
 }

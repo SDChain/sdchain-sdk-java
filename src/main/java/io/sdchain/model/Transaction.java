@@ -25,153 +25,166 @@ import com.google.gson.annotations.Expose;
 /** * 
  * Transaction model class
  */
-public class Transaction extends SDChainObject {
-    @Expose
-    private long date;
+public class Transaction {
     @Expose
     private String hash;
     @Expose
-    private TranType type;
+    private String ledger;
     @Expose
-    private String offertype;
+    private String date;
     @Expose
-    private int seq;
-    @Expose
-    private String fee;
+    private String type;
     @Expose
     private String result;
     @Expose
-    private String client_resource_id;
+    private Long offerseq;
     @Expose
-    private String counterparty;
+    private String offertype;
     @Expose
-    private Amount amount;
+    private String fee;
     @Expose
-    private Amount gets;
-    @Expose
-    private Amount pays;
+    private String state;
     @Expose
     private EffectCollection effects;
     @Expose
+    private Amount amount;
+    @Expose
+    private String pair;
+    @Expose
+    private String price;
+    @Expose
+    private Long seq;
+    @Expose
     private MemoCollection memos;
 
-    /**
-     * Transaction type:
-     *  sent, received, trusted, trusting,
-     *	convert, offernew, offercancel, offereffect,
-     *	accountset, sdchaining, failed
-     *
-     */
-    public enum TranType {
-        sent, received, trusted, trusting, convert, offernew, offercancel, offereffect, accountset, sdchaining, failed
-    }
-    /**
-     * Direction type:
-     * incoming, outgoing
-     *
-     */
     public enum DirectionType {
         incoming, outgoing, all
     }
-    /**
-     * Get date, in UNIXTIME
-     * @return date
-     */
-    public long getDate() {
-        return date;
-    }
-    /**
-     * Get hash number
-     * @return hash
-     */
+
     public String getHash() {
         return hash;
     }
-    /**
-     * Get transaction type
-     * @return type
-     */
-    public TranType getType() {
+
+    public String getLedger() {
+        return ledger;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public String getType() {
         return type;
     }
-    /**
-     * Get transaction fee, in SDA
-     * @return fee
-     */
-    public String getFee() {
-        return fee;
-    }
-    /**
-     * Get server result
-     * @return result
-     */
+
     public String getResult() {
         return result;
     }
-    /**
-     * Get resource id
-     * @return client_resource_id
-     */
-    public String getClient_resource_id() {
-        return client_resource_id;
+
+    public Long getOfferseq() {
+        return offerseq;
     }
-    /**
-     * Get transaction counter party
-     * @return counterparty
-     */
-    public String getCounterparty() {
-        return counterparty;
+
+    public String getOffertype() {
+        return offertype;
     }
-    /**
-     * Get transaction amount
-     * @return amount
-     */
-    public Amount getAmount() {
-        return amount;
+
+    public String getFee() {
+        return fee;
     }
-    /**
-     * Get transaction effect collection
-     * @return effects
-     */
+
+    public String getState() {
+        return state;
+    }
+
     public EffectCollection getEffects() {
         return effects;
     }
-    /**
-     * Order gets
-     * @return gets
-     */
-    public Amount getGets() {
-        return gets;
+
+    public Amount getAmount() {
+        return amount;
     }
-    /**
-     * Order pays
-     * @return pays
-     */
-    public Amount getPays() {
-        return pays;
+
+    public String getPair() {
+        return pair;
     }
-    /**
-     * Get transaction memo collection
-     * @return memos
-     */
+
+    public String getPrice() {
+        return price;
+    }
+
+    public Long getSeq() {
+        return seq;
+    }
+
     public MemoCollection getMemos() {
         return memos;
     }
 
-    /**
-     * Gets offertype.
-     *
-     * @return the offertype
-     */
-    public String getOffertype() {
-        return offertype;
+    public void setHash(String hash) {
+        this.hash = hash;
     }
-    /**
-     * Gets seq.
-     *
-     * @return the seq
-     */
-    public int getSeq() {
-        return seq;
+
+    public void setLedger(String ledger) {
+        this.ledger = ledger;
     }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public void setResult(String result) {
+        this.result = result;
+    }
+
+    public void setOfferseq(Long offerseq) {
+        this.offerseq = offerseq;
+    }
+
+    public void setOffertype(String offertype) {
+        this.offertype = offertype;
+    }
+
+    public void setFee(String fee) {
+        this.fee = fee;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public void setEffects(EffectCollection effects) {
+        this.effects = effects;
+    }
+
+    public void setAmount(Amount amount) {
+        this.amount = amount;
+    }
+
+    public void setPair(String pair) {
+        this.pair = pair;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
+    public void setSeq(Long seq) {
+        this.seq = seq;
+    }
+
+    public void setMemos(MemoCollection memos) {
+        this.memos = memos;
+    }
+
+    @Override
+    public String toString() {
+        return "Transaction [hash=" + hash + ", ledger=" + ledger + ", date=" + date + ", type=" + type + ", result=" + result + ", offerseq=" + offerseq + ", offertype=" + offertype + ", fee=" + fee + ", state=" + state + ", effects="
+            + effects + ", amount=" + amount + ", pair=" + pair + ", price=" + price + ", seq=" + seq + ", memos=" + memos + "]";
+    }
+
 }

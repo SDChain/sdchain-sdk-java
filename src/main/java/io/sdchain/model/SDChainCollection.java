@@ -25,7 +25,7 @@ import java.util.List;
 /**
  * SDChaine object Collection base class
  */
-public abstract class SDChainCollection<T> extends SDChainObject {
+public abstract class SDChainCollection<T> {
     private List<T> data;
     /**
      * Get list data
@@ -41,4 +41,10 @@ public abstract class SDChainCollection<T> extends SDChainObject {
     public void setData(List<T> data) {
         this.data = data;
     }
+
+    @Override
+    public String toString() {
+        return "SDChainCollection [data=" + data + "]";
+    }
+
 }

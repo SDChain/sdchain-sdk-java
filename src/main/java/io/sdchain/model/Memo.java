@@ -20,7 +20,7 @@
  */
 package io.sdchain.model;
 
-public class Memo extends SDChainObject {
+public class Memo {
     private String memo_type;
     private String memo_data;
 
@@ -36,6 +36,10 @@ public class Memo extends SDChainObject {
     }
     public String getMemoData() {
         return memo_data;
+    }
+    @Override
+    public String toString() {
+        return "Memo [memo_type=" + memo_type + ", memo_data=" + memo_data + "]";
     }
 
 }

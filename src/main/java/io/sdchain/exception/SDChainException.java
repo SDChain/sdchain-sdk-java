@@ -32,6 +32,7 @@ public abstract class SDChainException extends Exception {
     public SDChainException(String message) {
         super(message, null);
     }
+    
     public SDChainException(String message, Throwable e) {
         super(message, e);
     }

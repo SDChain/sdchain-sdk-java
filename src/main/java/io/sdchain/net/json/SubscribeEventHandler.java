@@ -27,7 +27,7 @@ import org.json.JSONObject;
  */
 public interface SubscribeEventHandler {
     void onMessage(JSONObject msg); // When got message from server
-    void onDisconnected(int code, String reason, boolean remote); 
+    void onDisconnected(int code, String reason, boolean remote);
     void onError(Exception error);
     void onConnected();
 }

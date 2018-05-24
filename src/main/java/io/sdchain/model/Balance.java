@@ -26,7 +26,7 @@ import com.google.gson.annotations.Expose;
 /**
  * Balance model
  */
-public class Balance extends SDChainObject {
+public class Balance {
 
     @Expose
     private double value;
@@ -69,4 +69,9 @@ public class Balance extends SDChainObject {
         this.issuer = this.counterparty;
         return this.issuer;
     }
+    @Override
+    public String toString() {
+        return "Balance [value=" + value + ", currency=" + currency + ", issuer=" + issuer + ", counterparty=" + counterparty + ", freezed=" + freezed + "]";
+    }
+
 }

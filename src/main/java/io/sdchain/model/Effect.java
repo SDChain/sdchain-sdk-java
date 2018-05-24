@@ -24,9 +24,9 @@ package io.sdchain.model;
  * Effect class, additional information about payments or transactions
  * 
  */
-public class Effect extends SDChainObject {
-    private EffectType effect;
-    private Order.OrderType type;
+public class Effect {
+    private String effect;
+    private String type;
     private Amount gets;
     private Amount pays;
     private String price;
@@ -44,149 +44,125 @@ public class Effect extends SDChainObject {
     private Amount to;
     private Amount amount;
     private String pair;
-    /**
-     * Effect type:
-     *  offer_funded, offer_partially_funded, offer_cancelled, offer_created,
-    	offer_bought, trust_create_local, trust_create_remote, trust_change_local,
-    	trust_change_remote, trust_change_balance, balance_change
-     */
-    public enum EffectType {
-        offer_funded, offer_partially_funded, offer_cancelled, offer_created, offer_bought, trust_create_local, trust_create_remote, trust_change_local, trust_change_remote, trust_change_balance, balance_change
-    }
-
-    /**
-     * Order sequence number
-     * @return seq
-     */
-    public int getSeq() {
-        return seq;
-    }
-    /**
-     * Gets hash.
-     *
-     * @return the hash
-     */
-    public String getHash() {
-        return hash;
-    }
-    /**
-     * Get effect type
-     * @return effect
-     */
-    public EffectType getEffect() {
+    public String getEffect() {
         return effect;
     }
-    /**
-     * Get order type, sell or buy
-     * @return type
-     */
-    public Order.OrderType getType() {
+    public String getType() {
         return type;
     }
-    /**
-     * For offer_funded, offer_cancelled, offer_created, get "get" currency amount
-     * @return gets
-     */
     public Amount getGets() {
         return gets;
     }
-    /**
-     * For offer_funded, offer_cancelled, offer_created, get pays currency amount
-     * @return pays
-     */
     public Amount getPays() {
         return pays;
     }
-    /**
-     * Get price
-     * @return price
-     */
     public String getPrice() {
         return price;
     }
-    /**
-     * For offer_partially_funded
-     * @return true if remaining order cancelled
-     */
-    public boolean getCancelled() {
+    public boolean isCancelled() {
         return cancelled;
     }
-    /**
-     * For offer_partially_funded, get remaining order amount
-     * @return remaining
-     */
-    public boolean getRemaining() {
+    public boolean isRemaining() {
         return remaining;
     }
-    /**
-     * Gets deleted.
-     *
-     * @return the deleted
-     */
-    public boolean getDeleted() {
+    public boolean isDeleted() {
         return deleted;
     }
-    /**
-     * For offer_bought, get got amount
-     * @return got
-     */
+    public int getSeq() {
+        return seq;
+    }
     public Amount getGot() {
         return got;
     }
-    /**
-     * For offer_bought, get paid amount
-     * @return paid
-     */
     public Amount getPaid() {
         return paid;
     }
-    /**
-     * For trust_create_local and trust_change_local, get counter party trusted
-     * @return counter party
-     */
     public CounterParty getCounterparty() {
         return counterparty;
     }
-    /**
-     * For trust_create_local, get amount trusted
-     * @return limit
-     */
     public Amount getLimit() {
         return limit;
     }
-    /**
-     * For trust_change_local, get changed trusted currency unit
-     * @return currency
-     */
     public String getCurrency() {
         return currency;
     }
-    /**
-     * For trust_change_local, trust_change_remote
-     * @return from
-     */
+    public String getHash() {
+        return hash;
+    }
     public Amount getFrom() {
         return from;
     }
-    /**
-     * For trust_change_local, trust_change_remote
-     * @return to
-     */
     public Amount getTo() {
         return to;
     }
-    /**
-     * For trust_change_balance, balance_change
-     * @return amount
-     */
     public Amount getAmount() {
         return amount;
     }
     public String getPair() {
         return pair;
     }
+    public void setEffect(String effect) {
+        this.effect = effect;
+    }
+    public void setType(String type) {
+        this.type = type;
+    }
+    public void setGets(Amount gets) {
+        this.gets = gets;
+    }
+    public void setPays(Amount pays) {
+        this.pays = pays;
+    }
+    public void setPrice(String price) {
+        this.price = price;
+    }
+    public void setCancelled(boolean cancelled) {
+        this.cancelled = cancelled;
+    }
+    public void setRemaining(boolean remaining) {
+        this.remaining = remaining;
+    }
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
+    }
+    public void setSeq(int seq) {
+        this.seq = seq;
+    }
+    public void setGot(Amount got) {
+        this.got = got;
+    }
+    public void setPaid(Amount paid) {
+        this.paid = paid;
+    }
+    public void setCounterparty(CounterParty counterparty) {
+        this.counterparty = counterparty;
+    }
+    public void setLimit(Amount limit) {
+        this.limit = limit;
+    }
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
+    public void setHash(String hash) {
+        this.hash = hash;
+    }
+    public void setFrom(Amount from) {
+        this.from = from;
+    }
+    public void setTo(Amount to) {
+        this.to = to;
+    }
+    public void setAmount(Amount amount) {
+        this.amount = amount;
+    }
     public void setPair(String pair) {
         this.pair = pair;
+    }
+
+    @Override
+    public String toString() {
+        return "Effect [effect=" + effect + ", type=" + type + ", gets=" + gets + ", pays=" + pays + ", price=" + price + ", cancelled=" + cancelled + ", remaining=" + remaining + ", deleted=" + deleted + ", seq=" + seq + ", got=" + got
+            + ", paid=" + paid + ", counterparty=" + counterparty + ", limit=" + limit + ", currency=" + currency + ", hash=" + hash + ", from=" + from + ", to=" + to + ", amount=" + amount + ", pair=" + pair + "]";
     }
 
 }

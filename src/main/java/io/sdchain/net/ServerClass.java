@@ -24,7 +24,6 @@
  */
 package io.sdchain.net;
 
-
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -32,15 +31,12 @@ import com.google.gson.GsonBuilder;
 import io.sdchain.model.BalanceCollection;
 import io.sdchain.model.EffectCollection;
 import io.sdchain.model.MemoCollection;
-import io.sdchain.model.OrderBookCollection;
 import io.sdchain.model.OrderCollection;
 import io.sdchain.model.PaymentCollection;
-import io.sdchain.model.SDChainObject;
 import io.sdchain.model.TransactionCollection;
 import io.sdchain.net.json.BalanceCollectionDeserializer;
 import io.sdchain.net.json.EffectCollectionDeserializer;
 import io.sdchain.net.json.MemoCollectionDeserializer;
-import io.sdchain.net.json.OrderBookCollectionDeserializer;
 import io.sdchain.net.json.OrderCollectionDeserializer;
 import io.sdchain.net.json.PaymentCollectionDeserializer;
 import io.sdchain.net.json.TransactionCollectionDeserializer;
@@ -52,26 +48,8 @@ import io.sdchain.net.json.TransactionCollectionDeserializer;
  * Extends the abstract class when you need request anything from sdchain
  * Contains the basic info for servers
  */
-public class ServerClass extends SDChainObject {
-    /**
-     * URLEncoder charset
-     */
-    public static final String CHARSET = "UTF-8";
+public class ServerClass {
 
-    protected String serverURL; // server url
-
-    protected ServerClass(String in_url){
-        serverURL = in_url;
-    }
-
-    public void setServerURL(String in_url){
-        serverURL = in_url;
-    }
-
-    public String getServerURL(){
-        return serverURL;
-    }
-    
     /**
      * Gson object use to transform json string to SDChain object
      * Added Memo
@@ -82,13 +60,12 @@ public class ServerClass extends SDChainObject {
      * .registerTypeAdapter(SettingsCollection.class, new SettingsCollectionDeserializer())
      */
     public static final Gson GSON = new GsonBuilder()
-            .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
-            .registerTypeAdapter(EffectCollection.class, new EffectCollectionDeserializer())
-            .registerTypeAdapter(BalanceCollection.class, new BalanceCollectionDeserializer())
-            .registerTypeAdapter(OrderCollection.class, new OrderCollectionDeserializer())
-            .registerTypeAdapter(OrderBookCollection.class, new OrderBookCollectionDeserializer())
-            .registerTypeAdapter(TransactionCollection.class, new TransactionCollectionDeserializer())
-            .registerTypeAdapter(MemoCollection.class, new MemoCollectionDeserializer())
-            .registerTypeAdapter(PaymentCollection.class, new PaymentCollectionDeserializer())
-            .create();
+        .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+        .registerTypeAdapter(EffectCollection.class, new EffectCollectionDeserializer())
+        .registerTypeAdapter(BalanceCollection.class, new BalanceCollectionDeserializer())
+        .registerTypeAdapter(OrderCollection.class, new OrderCollectionDeserializer())
+        .registerTypeAdapter(TransactionCollection.class, new TransactionCollectionDeserializer())
+        .registerTypeAdapter(MemoCollection.class, new MemoCollectionDeserializer())
+        .registerTypeAdapter(PaymentCollection.class, new PaymentCollectionDeserializer())
+        .create();
 }
